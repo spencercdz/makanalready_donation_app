@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Chope Your Slots</h1>
+    <form action="{{ url_for('chope_form', donation_id=donation.id) }}" method="POST" class="mt-4">
+        <div class="form-group">
+            <label for="num_people">Number of People</label>
+            <input 
+                type="number" 
+                class="form-control" 
+                id="num_people" 
+                name="num_people" 
+                placeholder="Enter number of people" 
+                min="1" 
+                max="{{ donation.remaining_quota() }}" 
+                required 
+                aria-label="Number of people to reserve">
+        </div>
+        <button type="submit" class="btn btn-success btn-block">Chope Now!</button>
+    </form>
+    <div class="text-center mt-4">
+        <a href="{{ url_for('view_donations') }}" class="btn btn-secondary">Cancel</a>
+    </div>
+</div>
+{% endblock %}

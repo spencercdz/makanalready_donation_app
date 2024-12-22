@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>My Bookings</h1>
+    <p>You have {{ bookings|length }} booking(s).</p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Donation (Restaurant)</th>
+                <th>Food Items</th>
+                <th>Quantity Booked</th>
+                <th>Date Booked</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <!-- Stephen: we can access booking.donation if we have set up relationships -->
+                <td>{{ booking.donation.restaurant_name }}</td>
+                <td>{{ booking.donation.food_item }}</td>
+                <td>{{ booking.num_people }}</td>
+                <td>{{ booking.created_at.strftime('%d %b %Y, %I:%M %p') }}</td>
+                <td>
+                    <!-- link it please> -->
+                    <a href="{{ url_for('chope', donation_id=booking.donation_id, num_people=booking.num_people) }}"
+                       class="btn btn-info btn-sm">
+                       View Details
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

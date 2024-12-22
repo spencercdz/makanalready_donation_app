@@ -1,0 +1,93 @@
+<!----danyl just copy from our login-->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>Register</h1>
+        <p class="lead">Create an account to get started with the Food Donation App.</p>
+    </div>
+
+    <!-- danyl: forms -->
+    <form action="{{ url_for('register') }}" method="POST" class="mt-4 mx-auto" style="max-width: 400px;">
+        <!-- danyl: username -->
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="username" 
+                name="username" 
+                placeholder="Enter a unique username" 
+                required 
+                aria-label="Username">
+        </div>
+
+        <!-- enter passorwd -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-group">
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter a secure password" 
+                    required 
+                    aria-label="Password">
+                <div class="input-group-append">
+                    <button 
+                        class="btn btn-outline-secondary" 
+                        type="button" 
+                        onclick="togglePassword()" 
+                        aria-label="Toggle password visibility">
+                        Show
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- add role for donor/recipient  -->
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" id="role" name="role" required aria-label="User role">
+                <option value="donor">Donor</option>
+                <option value="recipient">Recipient</option>
+            </select>
+        </div>
+
+        <!-- add some email address -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                name="email" 
+                placeholder="Enter your email address" 
+                required 
+                aria-label="Email Address">
+            <small class="form-text text-muted">
+                We will use this email for account verification and communication.
+            </small>
+        </div>
+
+        <!-- submit -->
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+
+    <!-- link to our login page -->
+    <div class="text-center mt-4">
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
+</div>
+
+<!-- show password -->
+<script>
+    function togglePassword() {
+        const passwordField = document.getElementById("password");
+        const type = passwordField.type === "password" ? "text" : "password";
+        passwordField.type = type;
+    }
+</script>
+{% endblock %}

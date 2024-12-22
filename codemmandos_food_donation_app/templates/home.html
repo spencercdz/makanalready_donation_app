@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- danyl: start of home page -->
+    <div class="text-center">
+        <h1 class="display-4">From Our Table to Yours!</h1>
+        <p class="lead">Join our community to help fight food insecurity and reduce food waste.</p>
+    </div>
+
+    <!-- danyl: user welcome login section -->
+    <div class="text-center mt-5">
+        {% if 'user_id' in session %}
+            <h3>Welcome back, {{ session.get('username', 'Guest') }}!</h3>
+            <p class="mt-3">We're glad to have you back.</p>
+            <div class="mt-4">
+                <a href="{{ url_for('view_donations') }}" class="btn btn-success btn-lg" aria-label="View donations">View Listings</a>
+                {% if session['role'] == 'donor' %}
+                    <a href="{{ url_for('donate') }}" class="btn btn-primary btn-lg" aria-label="Donate food">List Food</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <h3 class="mt-3">Make an Impact Today</h3>
+            <p class="mt-3">Register or log in to contribute to the cause and help those in need.</p>
+            <div class="mt-4">
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg" aria-label="Register">Register</a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary btn-lg" aria-label="Login">Login</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- danyl try and add stats to our home page to make it look legit -->
+    <div class="row mt-5">
+        <div class="col-md-4 text-center">
+            <h4>1000+</h4>
+            <p>Meals Donated</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h4>500+</h4>
+            <p>Active Donors</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h4>50+</h4>
+            <p>Communities Helped</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

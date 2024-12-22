@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Makan Already?</title>
+
+  <!-- icon -->
+  <link
+      rel="icon"
+      href="{{ url_for('static', filename='images/app_icon.ico') }}"
+      type="image/x-icon"
+  >
+
+  <!-- font -->
+  <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+      rel="stylesheet"
+  >
+
+  <!-- boostrap -->
+  <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  >
+
+  <!-- leaflet map -->
+  <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+
+  <!-- global styles -->
+  <style>
+      html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          font-family: 'Fredoka One', sans-serif !important;
+      }
+
+      /* background gradient kia hao */
+      body {
+          background: linear-gradient(
+              150deg,
+              #6e7dff,
+              #8fe3ff,
+              #eec9f5,
+              #f9b7d4,
+              #ffefd5
+          );
+          color: #333;
+          height: 100vh;
+          width: 100%;
+          background-size: 400% 400%;
+          animation: gradientShift 180s ease infinite;
+      }
+
+      @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          25% { background-position: 50% 50%; }
+          50% { background-position: 100% 50%; }
+          75% { background-position: 50% 50%; }
+          100% { background-position: 0% 50%; }
+      }
+
+      /* navbar kiahao */
+      nav.navbar {
+          position: fixed;
+          top: 0;
+          width: 100%;
+          z-index: 1030;
+          background-color: rgba(255, 255, 255, 0.85);
+          border-bottom: 2px solid #8d8d8d;
+          padding: 5px 0; /* Reduced padding */
+      }
+
+      nav.navbar .navbar-brand {
+          display: flex;
+          align-items: center;
+          color: #333;
+          font-size: 1.2rem;
+          font-weight: normal;
+      }
+
+      /* navbar icon kiahao */
+      .navbar-brand img {
+          width: 60px; 
+          height: 60px; 
+          margin-right: 10px;
+      }
+
+      /* reroutes to login, listings, book */
+      nav.navbar .navbar-nav .nav-link {
+          color: #333;
+      }
+      nav.navbar .navbar-nav .nav-link:hover {
+          color: #b3b3b3;
+      }
+
+      .container-fluid {
+          padding-top: 60px;
+      }
+
+      .alert-container {
+          margin-top: 70px;
+      }
+
+      /* donate button at the side kiahao */
+      .donate-btn {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #007bff;
+          color: #fff;
+          padding: 15px;
+          border-radius: 50%;
+          font-size: 20px;
+          cursor: pointer;
+          z-index: 1000;
+      }
+  </style>
+</head>
+<body>
+    <!-- navbar joshua -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="{{ url_for('home') }}">
+        <img 
+          src="{{ url_for('static', filename='images/app_icon.ico') }}" 
+          alt="Makan Already Icon" 
+        />
+        <span class="brand-text">Makan Already?</span>
+      </a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+              {% if 'user_id' in session %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('view_donations') }}">View Listings</a>
+                  </li>
+                  {% if session['role'] == 'donor' %}
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ url_for('donate') }}">List Food</a>
+                      </li>
+                  {% elif session['role'] == 'recipient' %}
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ url_for('my_bookings') }}">My Bookings</a>
+                      </li>
+                  {% endif %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                  </li>
+              {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                  </li>
+              {% endif %}
+          </ul>
+      </div>
+    </nav>
+
+    <!-- notificaitons joshua -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- main content joshua -->
+    <div class="container-fluid">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- donate button kiahao -->
+    {% if 'user_id' in session and session['role'] == 'donor' %}
+        <a href="{{ url_for('donate') }}" class="donate-btn" aria-label="List Food">🍲</a>
+    {% endif %}
+
+    <!-- link to our boostrap joshua -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

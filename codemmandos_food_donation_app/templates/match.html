@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="text-center mt-4">Available Donations</h1>
+
+    <!-- welcome message kiahao -->
+    <p class="text-center lead">Browse through the available food donations near you and claim what you need.</p>
+
+    <!-- match the donations -->
+    {% if donations %}
+        <div class="list-group mt-4">
+            {% for donation in donations %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ donation.food_item }}</h5>
+                    <p class="mb-1">Quantity: {{ donation.quantity }}</p>
+                    <p>Location: {{ donation.location }}</p>
+                    <small class="text-muted">Posted on: {{ donation.date_posted.strftime('%d %b %Y, %I:%M %p') }}</small>
+                    <form action="{{ url_for('claim_donation', donation_id=donation.id) }}" method="POST" class="mt-2">
+                        <button type="submit" class="btn btn-success btn-sm">Claim</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- no preferences then dont match kiahao -->
+        <p class="text-center mt-4">No donations are currently available that match your preferences. Please check back later.</p>
+    {% endif %}
+{% endblock %}

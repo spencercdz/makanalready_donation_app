@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Thank you, it's on the house.</h1>
+    <div class="row">
+        <!-- steph: make the booking form -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Restaurant Name</h5>
+                    <p class="card-text">{{ donation.restaurant_name }}</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Food Items</h5>
+                    <p class="card-text">{{ donation.food_item }}</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Meal Type</h5>
+                    <p class="card-text">{{ donation.meal_type|capitalize }}</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Special Diet</h5>
+                    <p class="card-text">{{ donation.special_diet|capitalize }}</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Quota Remaining</h5>
+                    <p class="card-text">
+                        {{ donation.remaining_quota() }}/{{ donation.quota }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- adresses steph -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Address</h5>
+                    <p class="card-text">
+                        <a href="https://www.google.com/maps/search/?api=1&query={{ donation.latitude }},{{ donation.longitude }}" target="_blank">
+                            {{ donation.address }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Number of People Reserved For</h5>
+                    <p class="card-text">{{ num_people }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- add qr code steph -->
+        <div class="col-md-6 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Scan QR Code</h5>
+                    <img src="{{ url_for('static', filename='images/placeholder_qr.png') }}" 
+                         alt="Placeholder QR Code" 
+                         class="img-fluid mb-3" 
+                         style="max-width: 200px;">
+                    <p>Use this QR code to confirm your reservation upon pickup.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('view_donations') }}" class="btn btn-primary">Back to Donations</a>
+    </div>
+</div>
+{% endblock content %}
