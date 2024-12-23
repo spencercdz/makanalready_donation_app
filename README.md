@@ -13,7 +13,8 @@ A few of our teammates volunteered for Food for the Heart and Food Bank distribu
 The App connects low income families with food donors (Buffet Restaurant owners) for the purpose of food redistribution to solve food insecurity and food waste.
 
 ## How we built it
-We used Python's Library Flask, HTML, CSS and Jayascript to create the app 
+We used Python's Library Flask, HTML, CSS and Javascript to create the app 
+This App also includes APIs such as Nominatim to create our maps, geocoding and reverse geocoding functions
 
 ## Challenges we ran into
 Faced a lot of bugs implementing the map feature using a free map API and exceeded the request limit for the API.
@@ -30,3 +31,4 @@ The considerations when creating an application tackling a social issue. Gained 
 Continue development of Makan Already and consider redistribution of other items other than food. 
 
 More details of our project can be found on our devpost page!
+https://devpost.com/software/makan-already-codemmandos?ref_content=user-portfolio&ref_feature=in_progress
