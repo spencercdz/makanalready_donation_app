@@ -1,6 +1,6 @@
 # Makan Already - Codemmandos
 
-Welcome to the **Makan Already** project repository! This is our submission for the **SUTD WTH: Makan Already?** website challenge. The application connects low-income families with food donors (buffet restaurant owners) to help redistribute food, tackling both food insecurity and food waste. 
+Welcome to the **Makan Already** project repository! This is our submission for the **SUTD WTH: Reducing Inequalities** category. The application connects low-income families with food donors (buffet restaurant owners) to help redistribute food, tackling both food insecurity and food waste. 
 
 ## Key Features:
 - **Advanced Account Registration and Login**: Secure user authentication for both food donors and recipients.
