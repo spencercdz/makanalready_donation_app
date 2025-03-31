@@ -12,7 +12,11 @@ Welcome to the **Makan Already** project repository! This is our submission for 
 - **Edit and Delete Listings**: Donors can manage their listings by editing or deleting them.
 
 ## Video Demo:
-[Watch the demo here!](https://youtu.be/3jLETHXjJCk)
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID" target="_blank">
+    <img src="https://youtu.be/3jLETHXjJCk" alt="Watch the demo here!" width="700">
+  </a>
+</p>
 
 ## Technologies Used:
 - **Languages**: Python (Flask), HTML, CSS, JavaScript
