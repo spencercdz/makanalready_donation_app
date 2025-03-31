@@ -13,8 +13,8 @@ Welcome to the **Makan Already** project repository! This is our submission for 
 
 ## Video Demo:
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID" target="_blank">
-    <img src="https://youtu.be/3jLETHXjJCk" alt="Watch the demo here!" width="700">
+  <a href="https://www.youtube.com/watch?v=3jLETHXjJCk" target="_blank">
+    <img src="https://www.youtube.com/watch?v=3jLETHXjJCk" alt="Watch the demo here!" width="700">
   </a>
 </p>
 
